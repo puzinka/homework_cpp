@@ -9,11 +9,34 @@ int main(){ //главная функция
     std::string s;
     std::ifstream in("D:\\github\\homework_cpp\\homework_cpp\\in.txt"); //берёт файл из заданного адреса
 
-    while(getline(in,s)){ //строка in записывается в переменную s
-        double x=0,y=0;
-        getXY(s,x,y);
-        std::cout<<x<<" "<<y<<std::endl;
+    if(getline(in,s)){
+        double xn=0,yn=0;
+        getXY(s,xn,yn);
+        double anglen=atan2(yn,xn);
+        double xl=0,yl=0,xr=0,yr=0;
+        double angleMin=anglen;
+        double angleMax=anglen;
+
+        while(getline(in,s)){ //строка in записывается в переменную s
+            double x=0,y=0;
+            getXY(s,x,y);
+            double angle=atan2(y,x);
+
+            if(angle>angleMax){
+                angleMax=angle;
+                xl=x;
+                yl=y;
+            }
+            else if(angle<angleMin){
+                angleMin=angle;
+                xr=x;
+                yr=y;
+            }
+        }
+        std::cout<<"Leftmost: "<<xl<<" "<<yl<<std::endl<<"Rightmost: "<<xr<<" "<<yr;
     }
+
+
     return 0;
 }
 

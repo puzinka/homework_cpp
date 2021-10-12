@@ -3,4 +3,4 @@ project(homework_cpp)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(homework_cpp main.cpp)
+add_executable(hw1 main.cpp)
