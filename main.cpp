@@ -1,42 +1,52 @@
-#include <iostream> //библиотека для ввода и вывода в консоль
-#include <string> //для использования строк (string)
-#include <fstream> //для работы с файлами
+#include <iostream>
+#include <string>
+#include <fstream>
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 void getXY(std::string s, double &x, double &y);
 
 int main(){ //главная функция
     std::string s;
-    std::ifstream in("D:\\github\\homework_cpp\\homework_cpp\\in.txt"); //берёт файл из заданного адреса
+    std::ifstream in("D:\\github\\homework_cpp\\homework_cpp\\in.txt");
 
     if(getline(in,s)){
         double xn=0,yn=0;
         getXY(s,xn,yn);
-        double anglen=atan2(yn,xn);
+        double angle_n=atan2(yn,xn);
         double xl=0,yl=0,xr=0,yr=0;
-        double angleMin=anglen;
-        double angleMax=anglen;
+        double angleRight=angle_n;
+        double angleLeft=angle_n;
 
-        while(getline(in,s)){ //строка in записывается в переменную s
+        while(getline(in,s)){
             double x=0,y=0;
             getXY(s,x,y);
             double angle=atan2(y,x);
-
-            if(angle>angleMax){
-                angleMax=angle;
-                xl=x;
-                yl=y;
+            if(angle<angle_n && (angle_n-M_PI)<=angle){
+                if(angle<angleRight){
+                    angleRight=angle;
+                    xr=x;
+                    yr=y;
+                }
             }
-            else if(angle<angleMin){
-                angleMin=angle;
-                xr=x;
-                yr=y;
+            else if(angle>angle_n || (angle_n-M_PI)>angle){
+                if((angle>0) && angle>angleLeft){
+                    angleLeft=angle;
+                    xl=x;
+                    yl=y;
+                }
+                else if(angle<0){
+                    angle=M_PI*2+angle;
+                    if(angle>angleLeft){
+                        angleLeft=angle;
+                        xl=x;
+                        yl=y;
+                    }
+                }
             }
         }
         std::cout<<"Leftmost: "<<xl<<" "<<yl<<std::endl<<"Rightmost: "<<xr<<" "<<yr;
     }
-
-
     return 0;
 }
 
