@@ -11,15 +11,13 @@ int main(){
     std::string s;
     std::ifstream data("D:\\github\\homework_cpp\\homework_cpp\\data.txt");
 
+    double h0=0;
     if(getline(data,s)){
-        double h0=0;
         get_h0(s,h0);
-        std::cout<<h0<<std::endl;
     }
+    double vx=0, vy=0;
     if(getline(data,s)){
-        double vx=0, vy=0;
         getXY(s,vx,vy);
-        std::cout<<vx<<" "<<vy<<std::endl;
     }
     std::vector <wall> Mass;
     while(getline(data,s)){
@@ -30,9 +28,47 @@ int main(){
         p.h=h;
         Mass.push_back(p);
     }
-    for(int i=0; i<Mass.size(); i++){
-        std::cout<<Mass.at(i).x<<" "<<Mass.at(i).h<<std::endl;
+    const double g=9.81;
+    int i=0;
+    double x0=0;
+    bool stop=true;
+    while(stop) {
+        double t = Mass.at(i).x / vx + x0;
+        double y = h0 + vy * t - g * t * t / 2;
+        if (y < Mass.at(i).h) {
+            vx = -vx;
+            vy=vy-g*t;
+            h0 = y;
+            x0 = Mass.at(i).x;
+            if(vx>0){
+                i++;
+            }
+            else{
+                i--;
+            }
+            if(y<0){
+                stop=false;
+            }
+        }
+        else if(y >= Mass.at(i).h){
+            if(vx>0){
+                i++;
+            }
+            else{
+                i--;
+            }
+        }
+        if(i>Mass.size()-1 || i<0){
+            stop=false;
+        }
     }
+    if(i<0){
+        i=0;
+    }
+    std::cout<<"Segment number: "<<i<<std::endl;
+    /*for(int i=0; i<Mass.size(); i++){
+        std::cout<<Mass.at(i).x<<" "<<Mass.at(i).h<<std::endl;
+    }*/
     return 0;
 }
 
