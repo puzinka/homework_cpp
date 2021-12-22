@@ -65,7 +65,8 @@ int main(){
     if(i<0){
         i=0;
     }
-    std::cout<<"Segment number: "<<i<<std::endl;
+    //std::cout<<"Segment number: "<<i<<std::endl;
+    std::cout<<i<<std::endl;
     /*for(int i=0; i<Mass.size(); i++){
         std::cout<<Mass.at(i).x<<" "<<Mass.at(i).h<<std::endl;
     }*/
