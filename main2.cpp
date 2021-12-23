@@ -7,9 +7,13 @@
 #include "structure.h"
 #include "functions.h"
 
-int main(){
+int main(int argc, char *argv[]){
+    std::string input_file_name="";
+    if (argc > 1){
+        input_file_name=argv[0];
+    }
+    std::ifstream data(input_file_name);
     std::string s;
-    std::ifstream data("D:\\github\\homework_cpp\\homework_cpp\\data.txt");
 
     double h0=0;
     if(getline(data,s)){

@@ -8,7 +8,7 @@ void getXY(std::string s, double &x, double &y);
 
 int main(){ //главная функция
     std::string s;
-    std::ifstream in("D:\\github\\homework_cpp\\homework_cpp\\in.txt");
+    std::ifstream in("in.txt");
 
     if(getline(in,s)){
         double xn=0,yn=0;
